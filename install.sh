@@ -6,6 +6,7 @@ partition(){
 	echo "Choose which disk to partition"
 	read -p 'cfdisk /dev/' disk
 	cfdisk /dev/$disk
+	clear
 }
 
 format(){
@@ -14,16 +15,19 @@ format(){
 	lsblk -f
 	echo "Choose partition to format"
 	read -p '/dev/' partition
+	clear
 
 	echo "Choose its filesystem"
 	echo $formatoptions
 	read -p 'mkfs.' fs
 	mkfs.$fs /dev/$partition
+	clear
 
 	echo "Choose its mount point"
 	read mount
 	mkdir /mnt$mount
 	mount $partition /mnt$mount
+	clear
 }
 
 install_base(){
