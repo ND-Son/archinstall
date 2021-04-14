@@ -24,26 +24,29 @@ format(){
 	clear
 
 	echo "Choose its mount point"
+	echo "enter nothing for root or 0 for swap"
 	read mount
-	mkdir /mnt$mount
-	mount $partition /mnt$mount
-	clear
+	if [$mount = 0]; then
+		swapon /dev/$partition
+	else
+		mkdir /mnt$mount
+		mount /dev/$partition /mnt$mount
+	fi
 }
 
 install_base(){
-	cpu='$(cat /proc/cpuinfo | grep vender | uniq | grep GenuineIntel)'
+	cpu='$(cat /proc/cpuinfo | grep vender | uniq | grep -o GenuineIntel)'
 	case $cpu in
 		GenuineIntel)  cpuname="intel" ;;
 		*) cpuname="amd";;
 	esac
-	pacstrap /mnt base base-devel linux-firmware linux-zen linuz-zen-headers xdg-user-dirs $cpuname-ucode
-	clear
+	pacstrap /mnt base base-devel linux-firmware linux-zen linux-zen-headers xdg-user-dirs $cpuname-ucode
 }
 
 chroot(){
-	cp /archinstall/config.sh /mnt/root
-	chmod +x /mnt/root/config.sh
-	arch-chroot /mnt /mnt/root/config.sh $cpuname
+	cp /root/archinstall/config.sh /mnt/
+	chmod 755 /mnt/config.sh
+	arch-chroot /mnt /config.sh $cpuname
 }
 
 txtpartition="""
@@ -51,7 +54,7 @@ Partition
 ---------
 """
 
-txtformat"""
+txtformat="""
 Formatting
 ----------
 """
@@ -69,9 +72,7 @@ swap
 """
 
 cpuname=""
-timedatectl ntp-set true
 partition
-format
-install_base
+timedatectl set-ntp true
 genfstab -U /mnt >> /mnt/etc/fstab
 chroot

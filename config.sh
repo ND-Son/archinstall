@@ -62,7 +62,7 @@ grub(){
 	echo "Choose disk target"
 	lsblk | grep disk
 	read -p "/dev/" disk
-	grup-install --target=i386-pc /dev/$disk
+	grub-install --target=i386-pc /dev/$disk
 	grub-mkconfig -o /boot/grub/grub.cfg
 }
 
@@ -81,8 +81,3 @@ initrd /initramfs-linux-zen.img
 options root=UUID=$UUID rw
 """ > /boot/loader/entries/arch.conf
 }
-
-timezone
-localization
-administration
-bootloader
