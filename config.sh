@@ -80,5 +80,9 @@ initrd /$1-ucode.img
 initrd /initramfs-linux-zen.img
 options root=UUID=$UUID rw
 """ > /boot/loader/entries/arch.conf
-
 }
+
+timezone
+localization
+administration
+bootloader
