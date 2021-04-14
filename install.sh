@@ -18,7 +18,7 @@ format(){
 	echo "Choose its filesystem"
 	echo $formatoptions
 	read -p 'mkfs.' fs
-	mkfs.$fs $partition
+	mkfs.$fs /dev/$partition
 
 	echo "Choose its mount point (enter nothing for swap)"
 	read mount
