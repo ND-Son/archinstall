@@ -20,7 +20,7 @@ format(){
 	read -p 'mkfs.' fs
 	mkfs.$fs /dev/$partition
 
-	echo "Choose its mount point (enter nothing for swap)"
+	echo "Choose its mount point"
 	read mount
 	mkdir /mnt$mount
 	mount $partition /mnt$mount
@@ -61,6 +61,7 @@ exfat
 vfat
 f2fs
 zfs
+swap
 """
 
 cpuname=""
