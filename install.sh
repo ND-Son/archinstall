@@ -32,15 +32,6 @@ pause(){
 	read -t 5 -p "Press any key to continue..."
 }
 
-lsblk(){
-	echo nvme0n1
-	echo nvme0n1p7
-	echo sda1
-	echo sda2
-	echo 'sdb '
-	echo sdc2
-}
-
 partition(){
 	lsblk |  grep -v " 1 " | grep 'nvme[0-9]n[0-9] \|sd[a-z]'
 	read disk

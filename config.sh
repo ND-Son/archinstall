@@ -142,3 +142,6 @@ aur(){
 efstab(){
 	vim /etc/fstab
 }
+
+cli
+rm /config.sh
