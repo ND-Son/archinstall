@@ -96,7 +96,7 @@ swap
 		swapon $partition
 	else
 		mkdir /mnt/$mount
-		mount $partition /mnt/$mount
+		mount /dev/$partition /mnt/$mount
 	fi
 	askextra
 }
