@@ -112,7 +112,7 @@ mirrorlist(){
 install_base(){
 	cpu='$(cat /proc/cpuinfo | grep vendor | uniq | grep -o GenuineIntel)'
 	case $cpu in
-		GenuineIntel)  cpuname="intel" ;;
+		"GenuineIntel")  cpuname="intel" ;;
 		*) cpuname="amd";;
 	esac
 	pacstrap /mnt base base-devel linux-firmware linux-zen linux-zen-headers xdg-user-dirs $cpuname-ucode
