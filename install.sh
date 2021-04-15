@@ -17,9 +17,9 @@ cli(){
 		1) partition;;
 		2) format;;
 		3) mounting;;
-		4) umount;;
+		4) unmount;;
 		5) mirrorlist;;
-		6) install;;
+		6) install_base;;
 		7) chroot;;
 		*) exit 0;;
 	esac
