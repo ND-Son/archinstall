@@ -8,7 +8,6 @@ cli(){
 	(5) - edit mirrorlist
 	(6) - install base
 	(7) - chroot
-	Anything else to cancel
 	"""
 	read -n 1 input
 	clear
@@ -100,7 +99,7 @@ swap
 	"""
 
 	read -p "mount point: " mount
-	read -p "device: " partition
+	read partition
 
 	if [[ $mount = swap ]]; then
 		swapon $partition

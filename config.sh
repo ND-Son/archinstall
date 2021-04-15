@@ -1,5 +1,49 @@
-# set root password
+name=""
+cli(){
+	echo """
+	==== Options ====
+	(1) - Timezone
+	(2) - Localization
+	(3) - Network
+	(4) - Administration
+	(5) - Bootloader
+	(6) - AUR
+	Anything else to cancel
+	"""
+	read -n 1 input
+	clear
 
+	case $input in
+		1) timezone;;
+		2) localization;;
+		3) network;;
+		4) administration;;
+		5) bootloader;;
+		6) aur;;
+		*) exit 0;;
+	esac
+	clear
+	cli
+}
+
+network(){
+	echo """
+	LAN only? (y/n)
+	"""
+	read -n 1 input
+
+	case $input in
+		y)
+			pacman -S dhcpcd
+			systemctl enable dhcpcd 
+			;;
+		*)
+			pacman -S networkmanager
+			systemctl enable NetworkManager
+			;;
+	esac
+
+}
 timezone(){
 	cd /usr/share/zoneinfo/
 	ls -d */
@@ -16,11 +60,18 @@ timezone(){
 
 localization(){
 	# locale gen
-	vim /etc/locale.gen
+	echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 	locale-gen
 
 	# locale.conf
 	echo "LANG=en_US.UTF-8" > /etc/locale.conf
+
+}
+
+administration(){
+	
+	# root paswd
+	passwd 
 
 	# hostname
 	read -p "Hostname:" name
@@ -32,11 +83,9 @@ host="""
 """
 
 	echo $host > /etc/hosts
-}
 
-administration(){
 	echo "set user password"
-	passwd
+	passwd $name
 
 	echo "creating User"
 	read -p "name" $name
@@ -80,4 +129,16 @@ initrd /$1-ucode.img
 initrd /initramfs-linux-zen.img
 options root=UUID=$UUID rw
 """ > /boot/loader/entries/arch.conf
+}
+
+aur(){
+	cd /home/$name
+	git clone https://aur.archlinux.org/paru
+	cd paru
+	sudo -u $name -g wheel makepkg -si
+	cd /
+}
+
+efstab(){
+	vim /etc/fstab
 }
