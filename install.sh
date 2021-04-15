@@ -60,7 +60,7 @@ root_mount(){
 	lsblk -f
 	read partition
 	partition=/dev/$partition
-	mount /dev/$partition /mnt
+	mount $partition /mnt
 }
 
 mounting(){
