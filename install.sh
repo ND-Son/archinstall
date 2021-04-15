@@ -110,7 +110,7 @@ mirrorlist(){
 }
 
 install_base(){
-	cpu='$(cat /proc/cpuinfo | grep vender | uniq | grep -o GenuineIntel)'
+	cpu='$(cat /proc/cpuinfo | grep vendor | uniq | grep -o GenuineIntel)'
 	case $cpu in
 		GenuineIntel)  cpuname="intel" ;;
 		*) cpuname="amd";;
