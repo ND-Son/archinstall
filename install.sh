@@ -33,7 +33,7 @@ pause(){
 }
 
 partition(){
-	lsblk |  grep -v " 1 " | grep 'nvme[0-9]n[0-9] \|sd[a-z]'
+	lsblk |  grep -v " 1 " | grep 'nvme[0-9]n[0-9] \|sd[a-z] '
 	read disk
 	cfdisk /dev/$disk
 	clear
@@ -77,7 +77,6 @@ askextra(){
 }
 
 extra_mount(){
-	mount
 	echo "---extra partitions---"
 
 	lsblk -f
